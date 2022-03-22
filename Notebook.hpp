@@ -5,12 +5,13 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <map>
 #include "Direction.hpp"
 
 namespace ariel {
 
     class Notebook {
-        std::unordered_map<unsigned int, std::unordered_map<unsigned int, std::vector<char>>> m_notebook;
+        std::unordered_map<unsigned int, std::map<unsigned int, std::vector<char>>> m_notebook;
 
     public:
 
