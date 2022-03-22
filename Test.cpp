@@ -61,7 +61,7 @@ TEST_CASE ("Good Input") {
 TEST_CASE ("Invalid Strings") {
     Notebook notebook;
 
-            SUBCASE("Tilda") {
+            SUBCASE("Tilda") { // program uses this character to mark deleted text
                 CHECK_THROWS(notebook.write(0, 0, 0, Direction::Horizontal, "~"));
                 CHECK_THROWS(notebook.write(0, 1, 0, Direction::Horizontal, "~~~~~~"));
                 CHECK_THROWS(notebook.write(0, 2, 1, Direction::Vertical, "~~a~bc~~~"));
@@ -72,7 +72,7 @@ TEST_CASE ("Invalid Strings") {
                 CHECK_THROWS(notebook.write(1, 1, 0, Direction::Horizontal, "\0abc"));
     }
 
-            SUBCASE("New line, carriage return") {
+            SUBCASE("Newline, carriage return") {
                 CHECK_THROWS(notebook.write(2, 0, 0, Direction::Horizontal, "\n"));
                 CHECK_THROWS(notebook.write(2, 0, 1, Direction::Horizontal, "hi\nhello"));
                 CHECK_THROWS(notebook.write(2, 1, 0, Direction::Horizontal, "~~~\r~"));
@@ -80,7 +80,7 @@ TEST_CASE ("Invalid Strings") {
                 CHECK_THROWS(notebook.write(2, 3, 0, Direction::Vertical, "\r"));
     }
 
-            SUBCASE("Underscore") {
+            SUBCASE("Underscore") { // program uses this character to mark an empty line
                 CHECK_THROWS(notebook.write(3, 0, 0, Direction::Horizontal, "____"));
                 CHECK_THROWS(notebook.write(3, 1, 0, Direction::Vertical, "_"));
                 CHECK_THROWS(notebook.write(3, 1, 1, Direction::Vertical, "_\n__~___~"));
@@ -99,7 +99,14 @@ TEST_CASE ("Write Method") {
                 CHECK_THROWS(notebook.write(1, 0, 99, Direction::Vertical, over_100));
     }
 
-            SUBCASE("Writing over deleted text") {
+            SUBCASE("Write over existing text") {
+        notebook.write(0, 0, 0, Direction::Horizontal, "acdat");
+                CHECK_THROWS(notebook.write(0, 0, 0, Direction::Horizontal, "++"));
+        notebook.write(1, 0, 0, Direction::Vertical, "set");
+                CHECK_THROWS(notebook.write(1, 0, 0, Direction::Vertical, "{5}"));
+    }
+
+            SUBCASE("Write over deleted text") {
         notebook.write(5, 0, 0, Direction::Horizontal, "a");
         notebook.write(5, 1, 1, Direction::Vertical, "text");
         notebook.erase(5, 0, 0, Direction::Horizontal, 1);
