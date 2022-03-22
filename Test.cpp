@@ -2,8 +2,8 @@
 #include "doctest.h"
 #include "Notebook.hpp"
 
-using namespace ariel;
 using ariel::Notebook;
+using ariel::Direction;
 using std::string;
 using std::random_device;
 
