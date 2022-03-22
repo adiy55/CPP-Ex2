@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <string>
-#include <vector>
+#include <array>
 #include <unordered_map>
 #include <map>
 #include "Direction.hpp"
@@ -11,17 +11,19 @@
 namespace ariel {
 
     class Notebook {
-        std::unordered_map<unsigned int, std::map<unsigned int, std::vector<char>>> m_notebook;
+        std::unordered_map<unsigned int, std::map<unsigned int, std::array<char, 100>>> _notebook;
 
     public:
 
-        void write(unsigned int, unsigned int, unsigned int, Direction, const std::string &);
+        void
+        write(unsigned int page, unsigned int row, unsigned int column, Direction direction, const std::string &str);
 
-        std::string read(unsigned int, unsigned int, unsigned int, Direction, unsigned int);
+        std::string
+        read(unsigned int page, unsigned int row, unsigned int column, Direction direction, unsigned int str_len);
 
-        void erase(unsigned int, unsigned int, unsigned int, Direction, unsigned int);
+        void erase(unsigned int page, unsigned int row, unsigned int column, Direction direction, unsigned int str_len);
 
-        void show(unsigned int);
+        void show(unsigned int page);
 
     };
 
