@@ -93,17 +93,17 @@ TEST_CASE ("Write Method") {
 
             SUBCASE("Out of bounds") {
         string over_100 = stringGenerator(105);
-                CHECK_THROWS(notebook.write(0, 95, 0, Direction::Horizontal, "abcdefg"));
-                CHECK_THROWS(notebook.write(0, 0, 99, Direction::Vertical, "!@#$%^&*()-+=[]|"));
+                CHECK_THROWS(notebook.write(0, 0, 95, Direction::Horizontal, "abcdefg"));
+                CHECK_THROWS(notebook.write(0, 99, 0, Direction::Vertical, "!@#$%^&*()-+=[]|"));
                 CHECK_THROWS(notebook.write(1, 0, 0, Direction::Horizontal, over_100));
-                CHECK_THROWS(notebook.write(1, 0, 99, Direction::Vertical, over_100));
+                CHECK_THROWS(notebook.write(1, 1, 0, Direction::Vertical, over_100));
     }
 
             SUBCASE("Write over existing text") {
         notebook.write(0, 0, 0, Direction::Horizontal, "acdat");
-                CHECK_THROWS(notebook.write(0, 0, 0, Direction::Horizontal, "++"));
+                CHECK_THROWS(notebook.write(0, 0, 0, Direction::Horizontal, "___"));
         notebook.write(1, 0, 0, Direction::Vertical, "set");
-                CHECK_THROWS(notebook.write(1, 0, 0, Direction::Vertical, "{5}"));
+                CHECK_THROWS(notebook.write(1, 1, 0, Direction::Vertical, "~+"));
     }
 
             SUBCASE("Write over deleted text") {
