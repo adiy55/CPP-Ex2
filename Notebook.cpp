@@ -21,17 +21,7 @@ namespace ariel {
     void Notebook::erase(uint page, uint row, uint column, Direction direction, uint len) {}
 
     void Notebook::show(uint page) {
-        m_notebook[100][0] = {'a'};
-        if (m_notebook.contains(page)) { // todo: from 20++?
-            map curr_page = m_notebook.at(page);
-            for(auto &[a, b] : curr_page){
-                for (char i : b) {
-                    cout << i;
-                }
-                cout << '\n';
-            }
-        }
-
+        m_notebook.find(page);
     }
 
 }
