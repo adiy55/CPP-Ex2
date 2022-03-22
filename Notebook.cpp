@@ -6,19 +6,15 @@ typedef unsigned int uint;
 
 namespace ariel {
 
-    Notebook::Notebook() {
-//        this->notes = new map<int, map<int, vector<char>>>;
-    }
-
-    Notebook::~Notebook() {
-
-    }
-
     void Notebook::write(uint page, uint row, uint column, Direction direction, const string &str) {
+        m_notebook.find(page);
         std::cout << str << '\n';
     }
 
-    string Notebook::read(uint page, uint row, uint column, Direction direction, uint len) { return ""; }
+    string Notebook::read(uint page, uint row, uint column, Direction direction, uint len) {
+        m_notebook.find(page);
+        return "";
+    }
 
     void Notebook::erase(uint page, uint row, uint column, Direction direction, uint len) {}
 

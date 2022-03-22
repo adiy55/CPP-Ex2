@@ -3,22 +3,16 @@
 
 #include <iostream>
 #include <string>
-//#include <vector>
-//#include <utility>
-//#include <unordered_map>
+#include <vector>
+#include <unordered_map>
 #include "Direction.hpp"
 
 namespace ariel {
 
     class Notebook {
-    private:
-//        std::unordered_map<std::pair<int, int>, std::vector<char>> notebook;
-//        map<int, map<int, vector < char>>> *notes;
-//        map <pair<int, int>, vector<char>> notes;
-    public:
-        Notebook();
+        std::unordered_map<unsigned int, std::unordered_map<unsigned int, std::vector<char>>> m_notebook;
 
-        ~Notebook();
+    public:
 
         void write(unsigned int, unsigned int, unsigned int, Direction, const std::string &);
 
