@@ -78,11 +78,6 @@ TEST_CASE ("Invalid Strings") {
                 CHECK_THROWS(notebook.write(2, 1, 0, Direction::Horizontal, "~~~\r~"));
                 CHECK_THROWS(notebook.write(2, 2, 0, Direction::Vertical, "yes\rno"));
                 CHECK_THROWS(notebook.write(2, 3, 0, Direction::Vertical, "\r"));
-    }
-
-            SUBCASE("Underscore") { // program uses this character to mark an empty line
-                CHECK_THROWS(notebook.write(3, 0, 0, Direction::Horizontal, "____"));
-                CHECK_THROWS(notebook.write(3, 1, 0, Direction::Vertical, "_"));
                 CHECK_THROWS(notebook.write(3, 1, 1, Direction::Vertical, "_\n__~___~"));
     }
 
