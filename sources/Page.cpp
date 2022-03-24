@@ -1,21 +1,17 @@
 #include "Page.hpp"
-#include <iostream>
 
 using std::string;
+using std::vector;
 using ariel::Direction;
 
-std::array<char, rowLength> &Page::getRow(int row) {
+vector<char> &Page::getRow(int row) {
     if (!_rows.contains(row)) {
-        _rows[row] = std::array<char, rowLength>();
-        auto &arr = _rows[row];
-        for (char &i: arr) {
-            i = '_';
-        }
+        _rows[row] = vector<char>(rowLength, '_');
     }
     return _rows[row];
 }
 
-std::string Page::getSection(int row, int column, ariel::Direction direction, int str_len) {
+string Page::getSection(int row, int column, Direction direction, int str_len) {
     string section;
     if (direction == Direction::Horizontal) {
         auto &line = this->getRow(row);
@@ -34,7 +30,7 @@ std::string Page::getSection(int row, int column, ariel::Direction direction, in
     return section;
 }
 
-void Page::write(int row, int column, ariel::Direction direction, const string &str) {
+void Page::write(int row, int column, Direction direction, const string &str) {
     if (direction == Direction::Horizontal) {
         auto &line = this->getRow(row);
         for (int i = 0; i < str.size(); ++i) {

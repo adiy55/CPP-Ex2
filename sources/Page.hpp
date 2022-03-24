@@ -2,7 +2,7 @@
 #define CPP_EX2_PAGE_HPP
 
 #include <map>
-#include <array>
+#include <vector>
 #include <string>
 #include "Direction.hpp"
 
@@ -13,9 +13,9 @@ class Page {
 
 private:
 
-    std::map<int, std::array<char, rowLength>> _rows;
+    std::map<int, std::vector<char>> _rows;
 
-    std::array<char, rowLength> &getRow(int row);
+    std::vector<char> &getRow(int row);
 
 public:
 
