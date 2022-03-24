@@ -15,7 +15,6 @@ namespace ariel {
 
     private:
 
-//        std::unordered_map<int, std::map<int, std::array<char, 100>>> _notebook;
         std::unordered_map<int, Page> _notebook;
 
         Page& getPage(int page);

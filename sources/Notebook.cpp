@@ -14,14 +14,17 @@ namespace ariel {
         return page.getSection(row, column, direction, str_len);
     }
 
-    void Notebook::erase(int page, int row, int column, Direction direction, int str_len) {}
+    void Notebook::erase(int page_number, int row, int column, Direction direction, int str_len) {
+        Page &page = this->getPage(page_number);
+        page.erase(row, column, direction, str_len);
+    }
 
     void Notebook::show(int page) {
         _notebook.find(page);
     }
 
     Page &Notebook::getPage(int page) {
-        if(!_notebook.contains(page)){
+        if (!_notebook.contains(page)) {
             _notebook[page] = Page();
         }
         return _notebook[page];
