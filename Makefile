@@ -1,30 +1,45 @@
 #!make -f
+# This Makefile can handle any set of cpp and hpp files.
+# To use it, you should put all your cpp and hpp files in the SOURCE_PATH folder.
 
 CXX=clang++-9 
-CXXFLAGS=-std=c++2a -Werror -Wsign-conversion
+CXXVERSION=c++2a
+SOURCE_PATH=sources
+OBJECT_PATH=objects
+CXXFLAGS=-std=$(CXXVERSION) -Werror -Wsign-conversion -I$(SOURCE_PATH)
+TIDY_FLAGS=-extra-arg=-std=$(CXXVERSION) -checks=bugprone-*,clang-analyzer-*,cppcoreguidelines-*,performance-*,portability-*,readability-*,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-cppcoreguidelines-owning-memory --warnings-as-errors=*
 VALGRIND_FLAGS=-v --leak-check=full --show-leak-kinds=all  --error-exitcode=99
 
-SOURCES=Notebook.cpp
-OBJECTS=$(subst .cpp,.o,$(SOURCES))
+SOURCES=$(wildcard $(SOURCE_PATH)/*.cpp)
+HEADERS=$(wildcard $(SOURCE_PATH)/*.hpp)
+OBJECTS=$(subst sources/,objects/,$(subst .cpp,.o,$(SOURCES)))
 
-run: demo
-	./$^
+run: test1 test2 test3
 
-demo: Demo.o $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $^ -o demo
+test1: TestRunner.o StudentTest1.o  $(OBJECTS)
+	$(CXX) $(CXXFLAGS) $^ -o $@
 
-test: TestCounter.o Test.o $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $^ -o test
+test2: TestRunner.o StudentTest2.o  $(OBJECTS)
+	$(CXX) $(CXXFLAGS) $^ -o $@
 
-tidy:
-	clang-tidy $(SOURCES) -checks=bugprone-*,clang-analyzer-*,cppcoreguidelines-*,performance-*,portability-*,readability-*,-cppcoreguidelines-pro-bounds-pointer-arithmetic,-cppcoreguidelines-owning-memory --warnings-as-errors=-* --
+test3: TestRunner.o StudentTest3.o  $(OBJECTS)
+	$(CXX) $(CXXFLAGS) $^ -o $@
 
-valgrind: demo test
-	valgrind --tool=memcheck $(VALGRIND_FLAGS) ./demo 2>&1 | { egrep "lost| at " || true; }
-	valgrind --tool=memcheck $(VALGRIND_FLAGS) ./test 2>&1 | { egrep "lost| at " || true; }
-
-%.o: %.cpp
+%.o: %.cpp $(HEADERS)
 	$(CXX) $(CXXFLAGS) --compile $< -o $@
 
+# StudentTest1.cpp:  # Shani Shuv
+# 	curl https://raw.githubusercontent.com/ShaniShuv/cppm2/master/Test.cpp > $@
+
+# StudentTest2.cpp:  # Reut Maslansky
+# 	curl https://raw.githubusercontent.com/Reut-Maslansky/Ariel-CPP--ex2/master/Test.cpp > $@
+
+tidy:
+	clang-tidy $(SOURCES) $(TIDY_FLAGS) --
+
+valgrind: test
+	valgrind --tool=memcheck $(VALGRIND_FLAGS) ./test1 2>&1 | { egrep "lost| at " || true; }
+
 clean:
-	rm -f *.o demo test
+	rm -f $(OBJECTS) *.o test* 
+	rm -f StudentTest*.cpp

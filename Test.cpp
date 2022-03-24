@@ -1,6 +1,6 @@
 #include <random>
 #include "doctest.h"
-#include "Notebook.hpp"
+#include "sources/Notebook.hpp"
 
 using ariel::Notebook;
 using ariel::Direction;
