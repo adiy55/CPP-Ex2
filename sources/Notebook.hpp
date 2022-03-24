@@ -7,13 +7,18 @@
 #include <unordered_map>
 #include <map>
 #include "Direction.hpp"
+#include "Page.hpp"
 
 namespace ariel {
 
     class Notebook {
 
     private:
-        std::unordered_map<int, std::map<int, std::array<char, 100>>> _notebook;
+
+//        std::unordered_map<int, std::map<int, std::array<char, 100>>> _notebook;
+        std::unordered_map<int, Page> _notebook;
+
+        Page& getPage(int page);
 
     public:
 
