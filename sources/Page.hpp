@@ -7,7 +7,9 @@
 #include <string>
 #include "Direction.hpp"
 
-#define rowLength 100
+#define ROW_LENGTH 100
+
+const char TILDA = '~';
 
 class Page {
 
