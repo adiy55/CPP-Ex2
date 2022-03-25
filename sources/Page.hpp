@@ -1,13 +1,13 @@
 #ifndef CPP_EX2_PAGE_HPP
 #define CPP_EX2_PAGE_HPP
 
+#include <iostream>
 #include <map>
 #include <vector>
 #include <string>
 #include "Direction.hpp"
 
 #define rowLength 100
-//const int rowLength = 100;
 
 class Page {
 
@@ -17,6 +17,8 @@ private:
 
     std::vector<char> &getRow(int row);
 
+    static void printRow(std::vector<char> &row);
+
 public:
 
     std::string getSection(int row, int column, ariel::Direction direction, int str_len);
@@ -24,6 +26,8 @@ public:
     void write(int row, int column, ariel::Direction direction, const std::string &str);
 
     void erase(int row, int column, ariel::Direction direction, int str_len);
+
+    void printPage();
 
 };
 

@@ -57,3 +57,22 @@ void Page::erase(int row, int column, ariel::Direction direction, int str_len) {
         }
     }
 }
+
+void Page::printPage() {
+    int curr_row_num = 0;
+    string str;
+    str.append(rowLength, '_');
+    for (auto &[key, value]: _rows) {
+        for (; curr_row_num < key; ++curr_row_num) {
+            std::cout << str << '\n';
+        }
+        Page::printRow(value);
+    }
+}
+
+void Page::printRow(vector<char> &row) {
+    for (char c: row) {
+        std::cout << c;
+    }
+    std::cout << '\n';
+}

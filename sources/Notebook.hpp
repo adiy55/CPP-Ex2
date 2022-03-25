@@ -2,10 +2,12 @@
 #define CPP_EX2_NOTEBOOK_HPP
 
 #include <iostream>
+#include <cctype>
 #include <string>
 #include <array>
 #include <unordered_map>
 #include <map>
+#include <functional>
 #include "Direction.hpp"
 #include "Page.hpp"
 
