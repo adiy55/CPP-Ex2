@@ -2,9 +2,11 @@
 
 using std::string;
 using std::vector;
+using std::cout;
+using std::invalid_argument;
 using ariel::Direction;
 
-typedef unsigned int uint; // assign a shorter name to an existing datatype (more readable code)
+typedef unsigned int uint; // assigns an alias to an existing datatype (more readable code)
 
 /**
  * If row does not exists- initializes a vector of underscores.
@@ -13,7 +15,7 @@ typedef unsigned int uint; // assign a shorter name to an existing datatype (mor
  */
 vector<char> &Page::getRow(int row) {
     if (!_rows.contains(row)) { // todo: change to count?
-        _rows[row] = vector<char>(ROW_LENGTH, UNDERSCORE);
+        _rows[row] = vector<char>(ROW_LENGTH, UNDERSCORE); // initializes vector of size row_length with underscores
     }
     return _rows[row];
 }
@@ -51,7 +53,7 @@ void Page::write(int row, int column, Direction direction, const string &str) {
         for (int i = 0; i < str.size(); ++i) {
             char &curr_char = line.at(uint(i + column));
             char new_char = str.at(uint(i));
-            checkValidForWrite(curr_char, new_char);
+            checkValidForWrite(curr_char, new_char); // helper function
             curr_char = new_char;
         }
     } else if (direction == Direction::Vertical) {
@@ -59,7 +61,7 @@ void Page::write(int row, int column, Direction direction, const string &str) {
             vector<char> &line = this->getRow(i + row);
             char &curr_char = line.at(uint(column));
             char new_char = str.at(uint(i));
-            checkValidForWrite(curr_char, new_char);
+            checkValidForWrite(curr_char, new_char); // helper function
             curr_char = new_char;
         }
     }
@@ -74,7 +76,7 @@ void Page::write(int row, int column, Direction direction, const string &str) {
  */
 void Page::erase(int row, int column, ariel::Direction direction, int str_len) {
     string tilda_str;
-    tilda_str.append(uint(str_len), TILDA);
+    tilda_str.append(uint(str_len), TILDA); // appends tilda str_len times
     this->write(row, column, direction, tilda_str);
 }
 
@@ -90,12 +92,12 @@ void Page::erase(int row, int column, ariel::Direction direction, int str_len) {
 void Page::printPage() const {
     int curr_row_num = 0;
     string str;
-    str.append(ROW_LENGTH, UNDERSCORE);
-    for (auto &[key, value]: _rows) { //
+    str.append(ROW_LENGTH, UNDERSCORE); // appends underscore row_length (100) times
+    for (auto &[key, value]: _rows) {
         for (; curr_row_num < key; ++curr_row_num) {
-            std::cout << str << '\n';
+            cout << str << '\n';
         }
-        Page::printRow(value); // static helper function
+        Page::printRow(value); // helper function
     }
 }
 
@@ -104,8 +106,9 @@ void Page::printPage() const {
  * @param row const reference (type: vector<char>)
  */
 void Page::printRow(const vector<char> &row) {
-    string curr_row = string(row.begin(), row.end());
-    std::cout << curr_row << '\n';
+    string curr_row = string(row.begin(), row.end()); // using the string constructor:
+    // accepts iterators to first and last position of the vector
+    cout << curr_row << '\n';
 }
 
 /**
@@ -115,6 +118,6 @@ void Page::printRow(const vector<char> &row) {
  */
 void Page::checkValidForWrite(char curr_char, char new_char) {
     if (curr_char != UNDERSCORE && new_char != TILDA) {
-        throw std::invalid_argument("Can not write over existing or erased text!");
+        throw invalid_argument("Can not write over existing or erased text!");
     }
 }
