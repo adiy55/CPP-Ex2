@@ -71,6 +71,12 @@ namespace ariel {
     /**
      * Throws exception if numbers are negative.
      */
+    /*
+     * "initializer_list<T> is a lightweight proxy object that provides access to an array of objects of type const T."
+     * Constructed with curly brackets {}.
+     * Used in this case to pass an unknown amount of integers in an iterable container.
+     * Additional information: https://en.cppreference.com/w/cpp/utility/initializer_list
+     */
     void Notebook::checkNonNegative(std::initializer_list<int> numbers) {
         for (const int &num: numbers) {
             if (num < 0) {
