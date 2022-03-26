@@ -8,16 +8,18 @@
 #include "Direction.hpp"
 
 #define ROW_LENGTH 100
-
-const char TILDA = '~';
+#define TILDA '~'
+#define UNDERSCORE '_'
 
 class Page {
 
 private:
 
-    std::map<int, std::vector<char>> _rows;
+    std::map<int, std::vector<char>> _rows; // todo: check if map keeps order by ascending key
 
     std::vector<char> &getRow(int row);
+
+    static void checkValidForWrite(char, char);
 
     static void printRow(std::vector<char> &row);
 
