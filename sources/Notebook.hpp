@@ -23,9 +23,7 @@ namespace ariel {
 
         static void validateIntegers(int, int, int, Direction, int = 0);
 
-        static void validateIntegers(int, ...);
-
-        static void validateString(const std::string &str);
+        static void validateIntegers(std::initializer_list<int> numbers);
 
         static void checkPrintable(const std::string &str);
 

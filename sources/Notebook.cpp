@@ -9,7 +9,7 @@ namespace ariel {
 
     void Notebook::write(int page_number, int row, int column, Direction direction, const string &str) {
         validateIntegers(page_number, row, column, direction);
-        validateString(str);
+        checkPrintable(str);
         Page &page = this->getPage(page_number);
         page.write(row, column, direction, str);
     }
@@ -27,7 +27,7 @@ namespace ariel {
     }
 
     void Notebook::show(int page_number) {
-        validateIntegers(1, page_number);
+        validateIntegers({page_number});
         Page &page = this->getPage(page_number);
         page.printPage();
     }
@@ -40,28 +40,18 @@ namespace ariel {
     }
 
     void Notebook::validateIntegers(int page_number, int row, int column, Direction direction, int str_len) {
-        validateIntegers(4, page_number, row, column, str_len);
-        if ((column > ROW_LENGTH) || (direction == Direction::Horizontal && ((column + str_len) > ROW_LENGTH))) {
+        validateIntegers({page_number, row, column, str_len});
+        if ((column >= ROW_LENGTH) || (direction == Direction::Horizontal && ((column + str_len) >= ROW_LENGTH))) {
             throw invalid_argument("Invalid input! Row index out of bounds!");
         }
     }
 
-    /*
-     * https://www.tutorialspoint.com/variable-number-of-arguments-in-cplusplus
-     */
-    void Notebook::validateIntegers(int num, ...) {
-        va_list args;
-        va_start(args, num);
-        for (int i = 0; i < num; ++i) {
-            if (va_arg(args, int) < 0) {
+    void Notebook::validateIntegers(std::initializer_list<int> numbers) {
+        for (const int &num: numbers) {
+            if (num < 0) {
                 throw invalid_argument("Invalid input! Received negative integer!");
             }
         }
-        va_end(args);
-    }
-
-    void Notebook::validateString(const string &str) {
-        checkPrintable(str);
     }
 
     void Notebook::checkPrintable(const string &str) {
