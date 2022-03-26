@@ -4,6 +4,7 @@ using std::string;
 using std::isprint;
 using std::isspace;
 using std::invalid_argument;
+using std::out_of_range;
 
 namespace ariel {
 
@@ -41,15 +42,15 @@ namespace ariel {
 
     void Notebook::validateIntegers(int page_number, int row, int column, Direction direction, int str_len) {
         validateIntegers({page_number, row, column, str_len});
-        if ((column >= ROW_LENGTH) || (direction == Direction::Horizontal && ((column + str_len) >= ROW_LENGTH))) {
-            throw invalid_argument("Invalid input! Row index out of bounds!");
+        if ((column >= ROW_LENGTH) || (direction == Direction::Horizontal && ((column + str_len) > ROW_LENGTH))) {
+            throw out_of_range("Invalid input! Row index out of bounds!");
         }
     }
 
     void Notebook::validateIntegers(std::initializer_list<int> numbers) {
         for (const int &num: numbers) {
             if (num < 0) {
-                throw invalid_argument("Invalid input! Received negative integer!");
+                throw out_of_range("Invalid input! Received negative integer!");
             }
         }
     }
@@ -57,14 +58,14 @@ namespace ariel {
     void Notebook::checkPrintable(const string &str) {
         for (char c: str) {
             if (isprint(c) == 0) {
-                throw invalid_argument("Invalid input! String is not printable");
+                throw invalid_argument("Invalid input! String is not printable!");
             }
             if (c == TILDA) {
                 throw invalid_argument("Invalid input! Tilda is an invalid character!");
             }
             if (c != ' ') {
                 if (isspace(c) != 0) {
-                    throw invalid_argument("Invalid input! Newline, carriage return");
+                    throw invalid_argument("Invalid input! Contains newline or carriage return!");
                 }
             }
         }
