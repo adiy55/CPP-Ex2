@@ -68,7 +68,7 @@ void Page::write(int row, int column, Direction direction, const string &str) {
 }
 
 /**
- * Erases a specific part on the page.
+ * Marks over a specific part of the page.
  * @param str_len number of chars to erase
  */
 /*
@@ -93,7 +93,7 @@ void Page::printPage() const {
     int curr_row_num = 0;
     string str;
     str.append(ROW_LENGTH, UNDERSCORE); // appends underscore row_length (100) times
-    for (auto &[key, value]: _rows) {
+    for (const auto &[key, value]: _rows) {
         for (; curr_row_num < key; ++curr_row_num) {
             cout << str << '\n';
         }
@@ -112,9 +112,9 @@ void Page::printRow(const vector<char> &row) {
 }
 
 /**
- * Checks if the place next character to write is valid.
+ * Checks if the place of the next character to write is valid.
  * @param curr_char char to overwrite
- * @param new_char char to be written
+ * @param new_char char to write
  */
 void Page::checkValidForWrite(char curr_char, char new_char) {
     if (curr_char != UNDERSCORE && new_char != TILDA) {
