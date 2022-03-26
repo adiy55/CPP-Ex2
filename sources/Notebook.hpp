@@ -16,23 +16,23 @@ namespace ariel {
 
         std::unordered_map<int, Page> _notebook;
 
-        Page &getPage(int page);
+        Page &getPage(int page_number);
 
         static void validateIntegers(int, int, int, Direction, int = 0);
 
-        static void validateIntegers(std::initializer_list<int> numbers);
+        static void checkNonNegative(std::initializer_list<int> numbers);
 
-        static void checkPrintable(const std::string &str);
+        static void checkWritable(const std::string &str);
 
     public:
 
-        void write(int page, int row, int column, Direction direction, const std::string &str);
+        void write(int page_number, int row, int column, Direction direction, const std::string &str);
 
-        std::string read(int page, int row, int column, Direction direction, int str_len);
+        std::string read(int page_number, int row, int column, Direction direction, int str_len);
 
-        void erase(int page, int row, int column, Direction direction, int str_len);
+        void erase(int page_number, int row, int column, Direction direction, int str_len);
 
-        void show(int page);
+        void show(int page_number);
 
     };
 

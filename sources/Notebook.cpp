@@ -14,7 +14,7 @@ namespace ariel {
      */
     void Notebook::write(int page_number, int row, int column, Direction direction, const string &str) {
         validateIntegers(page_number, row, column, direction);
-        checkPrintable(str);
+        checkWritable(str);
         Page &page = this->getPage(page_number);
         page.write(row, column, direction, str);
     }
@@ -41,7 +41,7 @@ namespace ariel {
      * Prints all page contents.
      */
     void Notebook::show(int page_number) {
-        validateIntegers({page_number});
+        checkNonNegative({page_number});
         Page &page = this->getPage(page_number);
         page.printPage();
     }
@@ -62,7 +62,7 @@ namespace ariel {
      * str_len default value is 0 to provide compatibility with write function (see in header file).
      */
     void Notebook::validateIntegers(int page_number, int row, int column, Direction direction, int str_len) {
-        validateIntegers({page_number, row, column, str_len}); // call helper function
+        checkNonNegative({page_number, row, column, str_len}); // call helper function
         if ((column >= ROW_LENGTH) || (direction == Direction::Horizontal && ((column + str_len) > ROW_LENGTH))) {
             throw out_of_range("Invalid input! Row index out of bounds!");
         }
@@ -71,7 +71,7 @@ namespace ariel {
     /**
      * Throws exception if numbers are negative.
      */
-    void Notebook::validateIntegers(std::initializer_list<int> numbers) {
+    void Notebook::checkNonNegative(std::initializer_list<int> numbers) {
         for (const int &num: numbers) {
             if (num < 0) {
                 throw out_of_range("Invalid input! Received negative integer!");
@@ -82,7 +82,7 @@ namespace ariel {
     /**
      * Checks if a given string is valid to write.
      */
-    void Notebook::checkPrintable(const string &str) {
+    void Notebook::checkWritable(const string &str) {
         for (char c: str) {
             if (isprint(c) == 0) {
                 throw invalid_argument("Invalid input! String is not printable!");
