@@ -1,10 +1,12 @@
 #include "Page.hpp"
+#include "Constants.hpp"
 
 using std::string;
 using std::vector;
 using std::cout;
 using std::invalid_argument;
 using ariel::Direction;
+using namespace constants;
 
 typedef unsigned int uint; // assigns an alias to an existing datatype (more readable code)
 // C++ type casting: https://stackoverflow.com/questions/103512/why-use-static-castintx-instead-of-intx

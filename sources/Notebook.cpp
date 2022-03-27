@@ -1,10 +1,12 @@
 #include "Notebook.hpp"
+#include "Constants.hpp"
 
 using std::string;
 using std::isprint;
 using std::isspace;
 using std::invalid_argument;
 using std::out_of_range;
+using namespace constants;
 
 namespace ariel {
 

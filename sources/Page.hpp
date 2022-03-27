@@ -7,10 +7,6 @@
 #include <string>
 #include "Direction.hpp"
 
-// global variables for vital values in the assignment
-const static int ROW_LENGTH = 100;
-const static char TILDA = '~';
-const static char UNDERSCORE = '_';
 
 /*
  * OOP approach -> Page object allows easier functionality in Notebook class.
