@@ -28,7 +28,7 @@ private:
 
     std::vector<char> &getRow(int row);
 
-    static void checkValidForWrite(char, char);
+    static void checkValidToWrite(char, char);
 
     static void printRow(const std::vector<char> &row);
 

@@ -54,7 +54,7 @@ void Page::write(int row, int column, Direction direction, const string &str) {
         for (int i = 0; i < str.size(); ++i) {
             char &curr_char = line.at(static_cast<uint>(i + column));
             char new_char = str.at(static_cast<uint>(i));
-            checkValidForWrite(curr_char, new_char); // helper function
+            checkValidToWrite(curr_char, new_char); // helper function
             curr_char = new_char;
         }
     } else if (direction == Direction::Vertical) {
@@ -62,7 +62,7 @@ void Page::write(int row, int column, Direction direction, const string &str) {
             vector<char> &line = this->getRow(i + row);
             char &curr_char = line.at(static_cast<uint>(column));
             char new_char = str.at(static_cast<uint>(i));
-            checkValidForWrite(curr_char, new_char); // helper function
+            checkValidToWrite(curr_char, new_char); // helper function
             curr_char = new_char;
         }
     }
@@ -117,7 +117,7 @@ void Page::printRow(const vector<char> &row) {
  * @param curr_char char to overwrite
  * @param new_char char to write
  */
-void Page::checkValidForWrite(char curr_char, char new_char) {
+void Page::checkValidToWrite(char curr_char, char new_char) {
     if (curr_char != UNDERSCORE && new_char != TILDA) {
         throw invalid_argument("Can not write over existing or erased text!");
     }
