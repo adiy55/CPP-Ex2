@@ -7,6 +7,7 @@ using std::invalid_argument;
 using ariel::Direction;
 
 typedef unsigned int uint; // assigns an alias to an existing datatype (more readable code)
+// C++ type casting: https://stackoverflow.com/questions/103512/why-use-static-castintx-instead-of-intx
 
 /**
  * If row does not exists- initializes a vector of underscores.
@@ -30,13 +31,13 @@ string Page::getSection(int row, int column, Direction direction, int str_len) {
     if (direction == Direction::Horizontal) {
         vector<char> &line = this->getRow(row);
         for (int i = column; i < (str_len + column); ++i) {
-            section.push_back(line.at(uint(i)));
+            section.push_back(line.at(static_cast<uint>(i)));
         }
     } else if (direction == Direction::Vertical) {
         int length = str_len + row;
         for (int i = row; i < length; ++i) {
             vector<char> &line = this->getRow(i);
-            section.push_back(line.at(uint(column)));
+            section.push_back(line.at(static_cast<uint>(column)));
         }
     }
     return section;
@@ -51,16 +52,16 @@ void Page::write(int row, int column, Direction direction, const string &str) {
     if (direction == Direction::Horizontal) {
         vector<char> &line = this->getRow(row);
         for (int i = 0; i < str.size(); ++i) {
-            char &curr_char = line.at(uint(i + column));
-            char new_char = str.at(uint(i));
+            char &curr_char = line.at(static_cast<uint>(i + column));
+            char new_char = str.at(static_cast<uint>(i));
             checkValidForWrite(curr_char, new_char); // helper function
             curr_char = new_char;
         }
     } else if (direction == Direction::Vertical) {
         for (int i = 0; i < str.size(); ++i) {
             vector<char> &line = this->getRow(i + row);
-            char &curr_char = line.at(uint(column));
-            char new_char = str.at(uint(i));
+            char &curr_char = line.at(static_cast<uint>(column));
+            char new_char = str.at(static_cast<uint>(i));
             checkValidForWrite(curr_char, new_char); // helper function
             curr_char = new_char;
         }
@@ -76,7 +77,7 @@ void Page::write(int row, int column, Direction direction, const string &str) {
  */
 void Page::erase(int row, int column, ariel::Direction direction, int str_len) {
     string tilda_str;
-    tilda_str.append(uint(str_len), TILDA); // appends tilda str_len times
+    tilda_str.append(static_cast<uint>(str_len), TILDA); // appends tilda str_len times
     this->write(row, column, direction, tilda_str);
 }
 
@@ -94,8 +95,8 @@ void Page::printPage() const {
     string str;
     str.append(ROW_LENGTH, UNDERSCORE); // appends underscore row_length (100) times
     for (const auto &[key, value]: _rows) {
-        for (; curr_row_num < key; ++curr_row_num) {
-            cout << str << '\n';
+        for (; curr_row_num < key; ++curr_row_num) { // prints line of underscores if row (in between) does not exist
+            cout << str << '\n'; // todo: necessary?
         }
         Page::printRow(value); // helper function
     }
