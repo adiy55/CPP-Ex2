@@ -17,7 +17,7 @@ typedef unsigned int uint; // assigns an alias to an existing datatype (more rea
  * @return reference to the row
  */
 vector<char> &Page::getRow(int row) {
-    if (!_rows.contains(row)) { // todo: change to count?
+    if (_rows.count(row) == 0) {
         _rows[row] = vector<char>(ROW_LENGTH, UNDERSCORE); // initializes vector of size row_length with underscores
     }
     return _rows[row];

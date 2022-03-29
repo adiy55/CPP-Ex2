@@ -53,7 +53,7 @@ namespace ariel {
      * @return reference to the page
      */
     Page &Notebook::getPage(int page_number) {
-        if (!_notebook.contains(page_number)) {
+        if (_notebook.count(page_number) == 0) {
             _notebook[page_number] = Page();
         }
         return _notebook[page_number];

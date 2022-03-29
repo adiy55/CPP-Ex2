@@ -10,7 +10,7 @@
 
 namespace ariel {
 
-    class Notebook { // todo: const methods?
+    class Notebook {
 
     private:
 
