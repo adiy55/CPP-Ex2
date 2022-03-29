@@ -26,8 +26,6 @@ private:
 
     static void checkValidToWrite(char, char);
 
-    static void printRow(const std::vector<char> &row);
-
 public:
 
     std::string getSection(int row, int column, ariel::Direction direction, int str_len);

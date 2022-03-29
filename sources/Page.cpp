@@ -93,25 +93,10 @@ void Page::erase(int row, int column, ariel::Direction direction, int str_len) {
  * Additional information: https://en.cppreference.com/w/cpp/language/structured_binding
  */
 void Page::printPage() const {
-    int curr_row_num = 0;
-    string str;
-    str.append(ROW_LENGTH, UNDERSCORE); // appends underscore row_length (100) times
-    for (const auto &[key, value]: _rows) {
-        for (; curr_row_num < key; ++curr_row_num) { // prints line of underscores if row (in between) does not exist
-            cout << str << '\n'; // todo: necessary?
-        }
-        Page::printRow(value); // helper function
+    for (const auto &[key, value]: _rows) { // string constructor accepts iterators to first and last vector position
+        string curr_row = string(value.begin(), value.end());
+        cout << curr_row << '\n';
     }
-}
-
-/**
- * Prints a given row.
- * @param row const reference (type: vector<char>)
- */
-void Page::printRow(const vector<char> &row) {
-    string curr_row = string(row.begin(), row.end()); // using the string constructor:
-    // accepts iterators to first and last position of the vector
-    cout << curr_row << '\n';
 }
 
 /**
